@@ -1,0 +1,61 @@
+﻿@model DocSite.Models.RegisterViewModel
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = DocSite.Resources.Manage.Register;
+}
+<body class="documents-body">
+    @Html.ActionLink(@DocSite.Resources.Resources.Home, "Index", "Products", null, new { @class = "menu-buttons", style = "float:left margin:10px;" })
+    <h2 style="margin-top:3em;">@DocSite.Resources.Manage.CreateAccount</h2>
+    <hr />
+    <form action="/Account/Register" method="post" id="registerform" role="form">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label class="col-md-2 control-label" style="text-align: right; padding-top: 5px;" for="Email">@DocSite.Resources.Manage.Email</label>
+            <div class="col-md-10" style="margin-bottom: 1em;">
+                <input type="email" id="Email" name="Email" class="form-control" required />
+            </div>
+        </div>
+        @if (User.IsInRole("Timehouse"))
+        {
+            <div class="form-group">
+                <label class="col-md-2 control-label" style="text-align: right; padding-top: 5px;" for="Organisation">@DocSite.Resources.Manage.Organization</label>
+                <div class="col-md-10" style="margin-bottom: 1em;">
+                    <input type="text" id="Organisation" minlength="2" name="Organisation" class="form-control" required />
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <label class="col-md-2 control-label" style="text-align: right; padding-top: 5px;" for="Password">@DocSite.Resources.Manage.Password</label>
+            <div class="col-md-10" style="margin-bottom: 1em;">
+                <input type="password" name="Password" id="Password" minlength="6" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" style="text-align: right; padding-top: 5px;" for="ConfirmPassword">@DocSite.Resources.Manage.ConfirmPassword</label>
+            <div class="col-md-10" style="margin-bottom: 1em;">
+                <input type="password" id="ConfirmPassword" name="ConfirmPassword" minlength="6" equalTo="#Password" class="form-control" required />
+            </div>
+        </div>
+        <div class="form-group">
+            @{
+                string authorId = User.Identity.GetUserId();
+            }
+            @Html.HiddenFor(m => authorId)
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="@DocSite.Resources.Manage.Register" />
+            </div>
+        </div>
+    </form>
+</body>
+<script src="~/Scripts/jquery.validate.js"></script>
+@if (Request.Cookies["Language"].Value == "fi")
+{
+    <script type="text/javascript" src="~/Localization/messages_fi.js"></script>
+}
+<script>
+    $("#registerform").validate();
+</script>
+
+

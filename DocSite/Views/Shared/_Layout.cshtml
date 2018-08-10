@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timehouse Oy - Aineistopankki - @ViewBag.Title</title>
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+	<link rel="manifest" href="/manifest.json" />
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+	<meta name="theme-color" content="#ffffff" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body> 
+    @Html.Partial("_NavBar")
+	<div id="ctl00_HeaderImage" class="headerimage headerimage-referenssit" style="border-top: 1px solid #F5C4B4;
+	border-bottom: 1px solid #F5C4B4;
+    background-image: url(/Pictures/frontpage-banner-aineistopankki.jpg);
+    ">
+		<img src="/pics/frontpage-banner-referenssit.jpg?v=2" id="ctl00_BannerImage" style="width:100%;max-width:1135px;height:auto;max-height:359px;">
+	</div>
+    <div class="container body-content col-sm-12">
+        @RenderBody()
+		
+        <footer>
+            <p></p>
+        </footer>
+    </div>  
+    @RenderSection("scripts", false)
+	<div class="footer-top-bg">
+    </div>
+    @Html.Partial("_Footer")
+    
+</body>
+
+</html>

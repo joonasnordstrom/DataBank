@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="dropdown" style="float:right;">
+            <span class="dropDownIcon glyphicon glyphicon-th-large"></span>
+            <div class="dropdown-content col-sm-12">
+                @Html.ActionLink(DocSite.Resources.Manage.ChangePassword, "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { @class = "dropDownBtn" })
+                @if (User.Identity.IsAuthenticated)
+                    {
+                    @Html.ActionLink(DocSite.Resources.Resources.Register, "Register", "Account", routeValues: null, htmlAttributes: new { @class = "dropDownBtn" })
+                }
+                @if (User.Identity.Name == "admin@timehouse.fi")
+                    {
+                    @Html.ActionLink(DocSite.Resources.Resources.UploadDocuments, "Admin", "Documents", routeValues: null, htmlAttributes: new { @class = "dropDownBtn" })
+                }
+                <a class="dropDownBtn" href="javascript:document.getElementById('logoutForm').submit()">@DocSite.Resources.Resources.Logoff</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    @Html.ActionLink(DocSite.Resources.Resources.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { @class = "menu-buttons" })
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(".languageSelect").before($(".dropdown"));
+</script>

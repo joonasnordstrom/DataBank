@@ -1,0 +1,115 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink(@DocSite.Resources.Resources.Home, "Index", "Products", null, new { @class = "menu-buttons", style = "float:left" })
+<body class="documents-body">
+        <h2 class="documents-header">@Model.Name</h2>
+
+        <div style="overflow-x:auto; margin-top:3em;">
+            <div class="table-container" style="overflow-x:auto; margin-bottom:1.1em;">
+                <table style="overflow-x:auto; margin-bottom:1.1em;" id="documents" class="table table-bordered table-hover documentsTable">
+                    <thead>
+                        <tr>
+                            <th>@DocSite.Resources.Documents.DocumentsTableTitle</th>
+                            <th>@DocSite.Resources.Documents.DocumentsTableUpdated</th>
+                            <th>@DocSite.Resources.Documents.DocumentsTableDelete</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <button id="uploadDocumentBtn" class="btn btn-default" style="margin-bottom: 8em">@DocSite.Resources.Documents.UploadDocuments</button>
+        </div>
+</body>
+
+
+@section scripts
+    {
+    @Scripts.Render("~/bundles/lib")
+    <script>
+        $(document).ready(function () {
+            var language = "";
+            $.ajax({
+                url: "/documents/getlanguage/",
+                method: "GET",
+                async: false,
+                success: function (data) {
+                    if (data == "fi") {
+                        language = "/localization/fi_FIN.json";
+                    }
+                }
+            });
+
+
+            var dataTable = $("#documents").DataTable({
+                    language: {
+                        url: language
+                    },
+                    ajax: {
+                        url: "/api/documentsapi/getorganizationdocuments/@Model.Name",
+                        method: "GET",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: "Name",
+                            render: function (data, type, document) {
+                                return "<a href=/documents/download/" + document.Id + ">" + data + "</a>";
+                            }
+                        },
+                        {
+                            data: "LastModified"
+                        },
+                        {
+                            data: "Id",
+                            render: function (data) {
+                                return "<button class='btn-link js-delete' data-document-id=" + data + ">@DocSite.Resources.Documents.DocumentsTableDelete</button>";
+                            }
+                        }
+
+                    ]
+            });
+
+            Dropzone.autoDiscover = false;
+            var dropzone = new Dropzone(document.body, {
+                url: "/documents/saveuploadedfile/0",
+                clickable: "#uploadDocumentBtn",
+                init: function () {
+                    this.on("success", function () {
+                        bootbox.alert("@DocSite.Resources.Documents.DocumentSavedSuccess");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2500);
+
+                    });
+                }
+            });
+
+            $("#documents").on("click", ".js-delete", function (e) {
+                var button = $(this);
+                button.attr('disabled', 'disabled');
+                bootbox.confirm("@DocSite.Resources.Documents.DocumentDeleteConfirm", function (confirmed) {
+                    if (confirmed) {
+                        $.ajax({
+                            url: "/api/documents/" + button.attr("data-document-id"),
+                            method: "DELETE",
+                            success: function () {
+                                dataTable.row(button.parents("tr")).remove().draw();
+                                button.attr('enabled', 'enabled');
+                                bootbox.alert("@DocSite.Resources.Documents.DocumentDeleteSuccess");
+                            }
+                        });
+                    }
+                    else {
+                        button.prop('disabled', false);
+                    }
+                });
+            });
+        });
+
+
+    </script>
+}

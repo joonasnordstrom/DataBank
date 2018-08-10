@@ -1,0 +1,109 @@
+﻿@model DocSite.ViewModels.ProductOrgViewModel
+@{
+    ViewBag.Title = DocSite.Resources.Resources.Home;
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body class="home-content" style="background-color:white">
+    <div class="widthlimit">
+        <div class="menuleft">
+            <h2>
+                <a>@DocSite.Resources.Documents.Navigation</a>
+            </h2>
+            <div class="menuleft_item">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink(Model.Organization, "Organization", "Documents")
+                }
+                @foreach (var product in Model.Products)
+                {
+                    if (product.Name == "Solutions")
+                    {
+
+                        <a href="" class="productClick" data-product-id=@product.Id>@DocSite.Resources.Documents.Solutions</a>
+                    }
+                    else
+                    {
+                        <a href="" class="productClick" data-product-id=@product.Id>@product.Name</a>
+                    }
+                }
+
+                }
+            </div>
+        </div>
+        <span id="scroll_to_content_anchor"></span>
+        <div class="page-container">
+            <div class="page-boxtitle box-green">
+                <h1 class="aineistopankki-h1">@DocSite.Resources.Resources.MaterialBank</h1>
+                <p>@DocSite.Resources.Resources.MaterialBankInfo</p>
+            </div>
+
+            <!--
+            <p>Timehouse tarjoaa asiakkailleen kattavan valikoiman palveluja.</p>
+            -->
+
+            @foreach (var product in Model.Products)
+            {
+                var picPath = "/Pictures/" + product.Name + ".png";
+                if (product.Id % 2 != 0)
+                {
+                    <div>
+                        <div style="float:left;width:50%;">
+                            <a data-product-id=@product.Id class="productClick product-btn product-btn-left">
+                                <span style="display:block;margin:0;height:20px;overflow:visible;color:#ffffff;">@product.Name</span>
+                                <span style="display:block;text-align:center;padding-left:15%;padding-right:15%;padding-top: 4%;">
+                                    <img src=@picPath alt="" style="width:100%;height:auto;">
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    if (product.Name == "Solutions")
+                    {
+                        <div>
+                            <div style="float:left;width:50%;">
+                                <a style="background:rgba(105, 95, 79, 0.8);" class=" productClick product-btn product-btn-right" data-product-id="4">
+                                    <span style="display:block;margin:0;height:20px;overflow:visible;color:#ffffff;">@DocSite.Resources.Documents.Solutions</span>
+                                        <h1 class="solutions-txt" style="font-size:2.5em;color:#fff;font-family:CoolV,Arial,Sans-serif;font-weight:normal">@DocSite.Resources.Documents.Solutions</h1>
+                                </a>
+
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <div style="float:left;width:50%;">
+                                <a data-product-id=@product.Id class=" productClick product-btn product-btn-right">
+                                    <span style="display:block;margin:0;height:20px;overflow:visible;color:#ffffff;">@product.Name</span>
+                                    <span class="productimg">
+                                        <img src=@picPath alt="" style="width:100%;height:auto;">
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>
+
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $(".productClick").on("click", function (e) {
+                e.preventDefault();
+                var button = $(this);
+                var url = "/documents/index/" + button.attr("data-product-id");
+                window.location.href = url;
+            });
+        });
+    </script>
+}
+

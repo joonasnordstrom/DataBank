@@ -1,0 +1,159 @@
+﻿@model DocSite.ViewModels.ProductViewModel
+
+@{
+    ViewBag.Title = "Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink(@DocSite.Resources.Resources.Home, "Index", "Products", null, new { @class = "menu-buttons", style = "float:left margin:10px;" })
+<body class="documents-body">
+
+    <div id="documents-content">
+
+        @if (Model.Name == "TimePub")
+        {
+            <h2 class="documents-header">@DocSite.Resources.Documents.TimePub</h2>
+            <h3 class="documents-header">@DocSite.Resources.Documents.TimePubHeader</h3>
+            <p class="documents-text">@DocSite.Resources.Documents.TimePubText</p>
+            <ul class="documents-text">
+                <li>@DocSite.Resources.Documents.TimePubLi1</li>
+                <li>@DocSite.Resources.Documents.TimePubLi2</li>
+                <li>@DocSite.Resources.Documents.TimePubLi3</li>
+                <li>@DocSite.Resources.Documents.TimePubLi4</li>
+                <li>@DocSite.Resources.Documents.TimePubLi5</li>
+                <li>@DocSite.Resources.Documents.TimePubLi6</li>
+                <li>@DocSite.Resources.Documents.TimePubLi7</li>
+            </ul>
+        }
+        else if (Model.Name == "TimeBase")
+        {
+            <h2 class="documents-header">@DocSite.Resources.Documents.TimeBase</h2>
+            <h3 class="documents-header">@DocSite.Resources.Documents.TimeBaseHeader</h3>
+            <p class="documents-text">@DocSite.Resources.Documents.TimeBaseText</p>
+        }
+        else if (Model.Name == "TimeShop")
+        {
+            <h2 class="documents-header">@DocSite.Resources.Documents.TimeShop</h2>
+            <h3 class="documents-header">@DocSite.Resources.Documents.TimeShopHeader</h3>
+            <p class="documents-text">@DocSite.Resources.Documents.TimeShopText</p>
+        }
+        else if (Model.Name == "Solutions")
+        {
+            <h2 class="documents-header">@DocSite.Resources.Documents.Solutions</h2>
+            <h3 class="documents-header">@DocSite.Resources.Documents.SolutionsHeader</h3>
+            <p class="documents-text">@DocSite.Resources.Documents.SolutionsText</p>
+        }
+        else
+        {
+            <h2>@DocSite.Resources.Documents.IncorrectProduct</h2>
+        }
+    </div>
+    <br />
+    <div class="col-sm-12">
+        <div style="overflow-x:auto; margin-bottom:1.1em;">
+            <table id="documents" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>@DocSite.Resources.Documents.DocumentsTableTitle</th>
+                        <th>@DocSite.Resources.Documents.DocumentsTableUpdated</th>
+                        <th>@DocSite.Resources.Documents.DocumentsTableDelete</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <button id="uploadDocumentBtn" class="btn btn-default" style="margin-bottom: 10px">@DocSite.Resources.Documents.UploadDocuments</button>
+        }
+    </div>
+
+</body>
+@section scripts
+    {
+    <script src="~/Scripts/dropzone/dropzone.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var documentsTable = $("#documents").DataTable({
+                language: {
+                    url: getLanguage()
+                },
+                ajax: {
+                    url: "/api/documentsapi/getdocuments/"+@Model.Id,
+                    method: "GET",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "Name",
+                        render: function (data, type, document) {
+                            return "<a href=/documents/download/" + document.Id+">"+ data + "</a>";
+                        }
+                            },
+                    {
+                        data: "LastModified"
+                    },
+                    {
+                        data: "Id",
+                        render: function (data) {
+                                return "<button class='btn-link js-delete' data-document-id=" + data + ">@DocSite.Resources.Documents.Delete</button>";
+                            }
+                    }
+
+                ]
+            });
+
+            Dropzone.autoDiscover = false;
+
+            var dropzone = new Dropzone(document.body, {
+                url: "/documents/saveuploadedfile/"+@Model.Id,
+                clickable: "#uploadDocumentBtn",
+                init: function () {
+                    this.on("success", function () {
+                        bootbox.alert("@DocSite.Resources.Documents.DocumentSavedSuccess");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2500);
+
+                    });
+                }
+            });
+
+            $("#documents").on("click", ".js-delete", function (e) {
+                var button = $(this);
+                button.attr('disabled', 'disabled');
+                bootbox.confirm("@DocSite.Resources.Documents.DocumentDeleteConfirm", function (confirmed) {
+                    if (confirmed) {
+                        $.ajax({
+                            url: "/api/documents/" + button.attr("data-document-id"),
+                            method: "DELETE",
+                            dataType: "Json",
+                            success: function () {
+                                documentsTable.row(button.parents("tr")).remove().draw();
+                                button.attr('enabled', 'enabled');
+                                bootbox.alert("@DocSite.Resources.Documents.DocumentDeleteSuccess");
+                            },
+                            error: function () {
+                                bootbox.alert("@DocSite.Resources.Documents.UnauthorizedDelete");
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+        function getLanguage() {
+            var language = "";
+            $.ajax({
+                url: "/documents/getlanguage/",
+                method: "GET",
+                async: false,
+                success: function (data) {
+                    if (data == "fi")
+                        language = "/localization/fi_FIN.json"
+                }
+            });
+            return language;
+        }
+    </script>
+}

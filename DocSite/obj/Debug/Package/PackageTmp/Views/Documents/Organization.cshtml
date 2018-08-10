@@ -1,0 +1,117 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="documents-header">@Model.Name</h2>
+
+<div class="col-sm-12" style="overflow-x:auto;">
+    <div style="overflow-x:auto; margin-bottom:1.1em;">
+        <table id="organizationDocuments" class="table table-bordered table-hover documentsTable">
+            <thead>
+                <tr>
+                    <th>@DocSite.Resources.Documents.DocumentsTableTitle</th>
+                    <th>@DocSite.Resources.Documents.DocumentsTableUpdated</th>
+                    <th>@DocSite.Resources.Documents.DocumentsTableDelete</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <button id="uploadDocumentBtn" class="btn btn-default" style="margin-bottom: 8em">@DocSite.Resources.Documents.UploadDocuments</button>
+</div>
+
+
+@section scripts
+    {
+    <script src="~/Scripts/dropzone/dropzone.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            var documentsTable = $("#organizationDocuments").DataTable({
+                ajax: {
+                    url: "/api/documentsapi/getorganizationdocuments/@Model.Name",
+                    method: "GET",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "Name",
+                        render: function (data, type, document) {
+                            return "<a href=/documents/download/" + document.Id + ">" + data + "</a>";
+                        }
+                    },
+                    {
+                        data: "LastModified"
+                    },
+                    {
+                        data: "Id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-document-id=" + data + ">@DocSite.Resources.Documents.DocumentsTableDelete</button>";
+                        }
+                    }
+
+                ]
+            });
+
+            Dropzone.autoDiscover = false;
+            var dropzone = new Dropzone(document.body, {
+                url: "/documents/saveuploadedfile/0",
+                previewsContainer: "#previewUploads",
+                clickable: "#uploadDocumentBtn",
+                init: function () {
+                    this.on("success", function () {
+                        custom_showNotification("@DocSite.Resources.Documents.DocumentSavedSuccess");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2500);
+
+                    });
+                }
+            });
+
+            $("#organizationDocuments").on("click", ".js-delete", function (e) {
+                var button = $(this);
+                button.attr('disabled', 'disabled');
+                bootbox.confirm("@DocSite.Resources.Documents.DocumentDeleteConfirm", function (confirmed) {
+                    if (confirmed) {
+                        $.ajax({
+                            url: "/api/documents/" + button.attr("data-document-id"),
+                            method: "DELETE",
+                            success: function () {
+                                documentsTable.row(button.parents("tr")).remove().draw();
+                                button.attr('enabled', 'enabled');
+                                custom_showNotification("@DocSite.Resources.Documents.DocumentDeleteSuccess");
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+        function custom_showNotification(text) {
+            if ($('#notification').length < 1) {
+                $('body').append('<div id="notification"><div class="notification-text">' + text + '</div></div>').promise().done(function () {
+                    $('#notification').queue('fx');
+                    custom_animateNotification();
+                });
+            }
+            else {
+                $('#notification .notification-text').html(text);
+                custom_animateNotification();
+            }
+        }
+
+        function custom_animateNotification(text) {
+            $('#notification').show('clip', function () {
+                $('#notification .notification-text').effect('bounce', { times: 3, distance: 10 }, 500);
+                setTimeout(function () {
+                    $('#notification').hide('clip');
+                }, 1000);
+            });
+        }
+    </script>
+}

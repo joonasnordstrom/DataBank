@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="nav-btns-right">
+            @Html.ActionLink(User.Identity.GetUserName(), "ChangePassword", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+
+            @if (User.Identity.IsAuthenticated)
+            {
+            @Html.ActionLink(DocSite.Resources.Manage.Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+            }
+            @if (User.Identity.Name == "admin@timehouse.fi")
+            {
+                @Html.ActionLink(DocSite.Resources.Resources.UploadDocuments, "Admin", "Documents", routeValues: null, htmlAttributes: new { id = "adminUpload" })
+            }
+            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        </div>
+    }
+}
+else
+{
+    @Html.ActionLink(DocSite.Resources.Manage.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+}

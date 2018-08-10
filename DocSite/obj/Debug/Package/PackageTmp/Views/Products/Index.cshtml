@@ -1,0 +1,37 @@
+﻿@model IEnumerable<DocSite.Models.Product>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = DocSite.Resources.Resources.Home;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var product in Model)
+{
+    <div class="col-md-6 productBtnDiv">
+        @if (product.Name == "Solutions" && Request.Cookies["Language"].Value == "fi")
+        {
+            <a data-product-id=@product.Id class="productBtn img-responsive solutions-fi"></a>
+        }
+        else
+        {
+            <a data-product-id=@product.Id class="productBtn img-responsive @product.Name"></a>
+        }
+
+    </div>
+}
+
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $(".productBtn").on("click", function (e) {
+                e.preventDefault();
+
+                var button = $(this);
+                var url = "documents/index/" + button.attr("data-product-id");
+                window.location.href = url;
+            });
+        });
+    </script>
+}

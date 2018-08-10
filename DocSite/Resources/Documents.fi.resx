@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Delete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DocumentDeleteConfirm" xml:space="preserve">
+    <value>Oletko varma, että haluat poistaa tiedoston?</value>
+  </data>
+  <data name="DocumentDeleteSuccess" xml:space="preserve">
+    <value>Tiedosto poistettu onnistuneesti</value>
+  </data>
+  <data name="DocumentSavedSuccess" xml:space="preserve">
+    <value>Tiedosto tallennettu onnistuneesti</value>
+  </data>
+  <data name="DocumentsTableDelete" xml:space="preserve">
+    <value>Poista</value>
+  </data>
+  <data name="DocumentsTableTitle" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
+  <data name="DocumentsTableUpdated" xml:space="preserve">
+    <value>Päivitetty</value>
+  </data>
+  <data name="IncorrectProduct" xml:space="preserve">
+    <value>Virheellinen tuote indeksi</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navigointi</value>
+  </data>
+  <data name="Solutions" xml:space="preserve">
+    <value>Ratkaisut</value>
+  </data>
+  <data name="SolutionsHeader" xml:space="preserve">
+    <value>Älykirjat, julkaisujärjestelmät, verkkokaupat</value>
+  </data>
+  <data name="SolutionsText" xml:space="preserve">
+    <value>Hallitsemme tietotekniikan ja annamme tämän osaamisen asiakkaidemme käyttöön. Suunnittelemme yhdessä asiakkaidemme kanssa mahdollisimman tehokkaan tavan hyödyntää uusinta tietotekniikkaa.</value>
+  </data>
+  <data name="TimeBase" xml:space="preserve">
+    <value>TimeBase</value>
+  </data>
+  <data name="TimeBaseHeader" xml:space="preserve">
+    <value>Materiaalin toimitus</value>
+  </data>
+  <data name="TimeBaseText" xml:space="preserve">
+    <value>Materiaalia voidaan muokata ajasta ja paikasta riippumatta. Editoriksi sopii vaikkapa Microsoft Word, Open Office, Adobe FrameMaker, Adobe InDesign, ilmainen XML-editori tai Internet-selain. TimeBase on toimittajan työkalu, joka on aina mukana ja valmiina käytettäväksi.
+
+TimeBase on turvallinen paikka kaikelle materiaalille. Keskittäminen helpottaa materiaalin käyttöä erilaisissa tuotteissa ja projektissa sekä mahdollistaa esim. automaattisen päivittäisen varmuus­kopioinnin.
+
+TimeBase-toimitus­järjestelmään voidaan rakentaa eri tyyppisiä työnkulkuja, esim. materiaalin keräämiseksi avustajilta Internet-editoinnin avulla.
+
+TimeBase on Timehousen toimitus­järjestelmä­ratkaisu.</value>
+  </data>
+  <data name="TimePub" xml:space="preserve">
+    <value>TimePub</value>
+  </data>
+  <data name="TimePubHeader" xml:space="preserve">
+    <value>Monikanavajulkaisua</value>
+  </data>
+  <data name="TimePubLi1" xml:space="preserve">
+    <value>Hakukoneen tulokset</value>
+  </data>
+  <data name="TimePubLi2" xml:space="preserve">
+    <value>Lähtevät tai tulevat viittaukset</value>
+  </data>
+  <data name="TimePubLi3" xml:space="preserve">
+    <value>Sisällysluettelo</value>
+  </data>
+  <data name="TimePubLi4" xml:space="preserve">
+    <value>Kirjanmerkit</value>
+  </data>
+  <data name="TimePubLi5" xml:space="preserve">
+    <value>Asiahakemisto</value>
+  </data>
+  <data name="TimePubLi6" xml:space="preserve">
+    <value>Käsitekartta</value>
+  </data>
+  <data name="TimePubLi7" xml:space="preserve">
+    <value>Toimituksen nostot</value>
+  </data>
+  <data name="TimePubText" xml:space="preserve">
+    <value>Samasta materiaalista saadaan useita tuotteita ja palveluita eri alustoille. Sähköisessä julkaisussa responsiivinen web-sivusto palvelee eri pääte­laitteita: desktop, mobiili, tabletit. Paperi­julkaisu voidaan tehdä taitto-ohjelmilla: Adobe Indesign, Adobe FrameMaker, MS Word, Open Office.
+
+Sähköisessä julkaisussa käyttäjä voi navigoida mm. seuraavilla tavoilla:</value>
+  </data>
+  <data name="TimeShop" xml:space="preserve">
+    <value>TimeShop</value>
+  </data>
+  <data name="TimeShopHeader" xml:space="preserve">
+    <value>TimeShop-verkkokauppaohjelmisto</value>
+  </data>
+  <data name="TimeShopText" xml:space="preserve">
+    <value>TimeShop on edistyksellinen verkko­kauppa­ratkaisu suurille ja keski­suurille kotimaisille ja kansain­välisille yrityksille.
+TimeShop ei ole pelkkä ostos­kori ja verkko­maksaminen. Verkko­kauppa­ohjelmistosta saadaan täysi hyöty kun se integroidaan asiakkuuden­hallintaan, markkinointiin ja tuotteiden toimitus automatisoidaan.</value>
+  </data>
+  <data name="UnauthorizedDelete" xml:space="preserve">
+    <value>Et ole oikeutettu poistamaan julkisia dokumentteja.</value>
+  </data>
+  <data name="UploadDocuments" xml:space="preserve">
+    <value>Lisää tiedosto</value>
+  </data>
+</root>

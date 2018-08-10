@@ -1,0 +1,86 @@
+﻿@model DocSite.ViewModels.RoleProductViewModel
+
+@{
+    ViewBag.Title = "Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="adminform" action="/documents/adminuploaddocument" enctype="multipart/form-data" method="post">
+    <div class="admin-form form-group">
+        <h2>@DocSite.Resources.Documents.UploadDocuments</h2>
+        <hr />
+
+        <input type="file" name="Files" multiple />
+        <div class="form-group">
+            @Html.Label(DocSite.Resources.Resources.SelectProduct)
+            <select style="margin-left:1em; border-radius:3px;" name="ProductId">
+                <option class="adminOption">@DocSite.Resources.Resources.Organization</option>
+                @foreach (var item in Model.Products)
+                {
+                    <option style="border-radius:3px;" class="adminOption" name="ProductId" value=@item.Id>@item.Name</option>
+                }
+            </select>
+        </div>
+        @Html.Label(DocSite.Resources.Resources.SelectOrganizations)
+        <div class="checkbox">
+            <label>
+                @foreach (var item in Model.Roles)
+                {
+                    <input class="adminCheckbox" type="checkbox" name="Organizations" value=@item.Name>@item.Name<br />
+                }
+            </label>
+        </div>
+        <div style="margin-bottom:9em;">
+            @Html.AntiForgeryToken()
+            <input style="margin-top:2em;" id="admin-submit-btn" class="btn btn-default" type="submit" value="@DocSite.Resources.Resources.Submit" />
+        </div>
+    </div>
+</form>
+
+@section scripts{
+    <script>
+        /*$(document).ready(function () {
+
+            /*$("#adminform").submit(function (e) {
+                e.preventDefault();
+
+                //get the action-url of the form
+                var actionurl = e.currentTarget.action;
+
+                //do your own request an handle the results
+                $.ajax({
+                    url: actionurl,
+                    type: 'post',
+                    dataType: 'application/json',
+                    data: $("#adminform").serialize(),
+                    success: function (data) {
+                        console.log("success");
+
+                    }
+                });
+            });
+
+            function custom_showNotification(text) {
+                if ($('#notification').length < 1) {
+                    $('body').append('<div id="notification"><div class="notification-text">' + text + '</div></div>').promise().done(function () {
+                        $('#notification').queue('fx');
+                        custom_animateNotification();
+                    });
+                }
+                else {
+                    $('#notification .notification-text').html(text);
+                    custom_animateNotification();
+                }
+            }
+
+            function custom_animateNotification(text) {
+                $('#notification').show('clip', function () {
+                    $('#notification .notification-text').effect('bounce', { times: 3, distance: 10 }, 500);
+                    setTimeout(function () {
+                        $('#notification').hide('clip');
+                    }, 1000);
+                });
+            }
+        });*/
+    </script>
+}

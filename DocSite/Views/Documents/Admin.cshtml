@@ -1,0 +1,62 @@
+﻿@using DocSite.Resources
+@model DocSite.ViewModels.RoleProductViewModel
+@{
+    ViewBag.Title = "Documents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body class="documents-body">
+    @Html.ActionLink(@Resources.Home, "Index", "Products", null, new { @class = "menu-buttons", style = "float:left" })
+    <form id="adminform" action="/documents/adminuploaddocument" style="margin-top:3em;" enctype="multipart/form-data" method="post">
+        <div class="admin-form form-group">
+            <h2>@Documents.UploadDocuments</h2>
+            <hr />
+
+            <input type="file" name="Files" multiple />
+            <div class="form-group">
+                @Html.Label(Resources.SelectProduct)
+                <select style="border-radius: 3px; margin-left: 1em;" name="ProductId">
+                    <option class="adminOption">@Resources.Organization</option>
+                    @foreach (var item in Model.Products)
+                    {
+                        <option style="border-radius: 3px;" class="adminOption" name="ProductId" value=@item.Id>@item.Name</option>
+                    }
+                </select>
+            </div>
+            @Html.Label(Resources.SelectOrganizations)
+            <div class="checkbox">
+                <label>
+                    @foreach (var item in Model.Roles)
+                    {
+                        if (item.Name == "Public")
+                        {
+                            <input class="adminCheckbox" id="@item.Name" type="checkbox" name="Organizations" value=@item.Name>
+                            @item.Name<br />
+                        }
+                        else
+                        {
+                            <input class="adminCheckbox Organizations" type="checkbox" name="Organizations" value=@item.Name>
+                            @item.Name<br />
+                        }
+
+                    }
+                </label>
+            </div>
+            <div style="margin-bottom: 9em;">
+                @Html.AntiForgeryToken()
+                <input style="margin-top: 2em;" id="admin-submit-btn" class="btn btn-default" type="submit" value="@Resources.Submit" />
+            </div>
+        </div>
+    </form>
+</body>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#Public').click(function () {
+                $(".Organizations").attr('checked', false);
+                $(".Organizations").toggle();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,33 @@
+﻿@using DocSite.Resources
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @class = "navbar-right"}))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="dropdown" style="float: right;">
+            <span class="dropDownIcon glyphicon glyphicon-th-large"></span>
+            <div class="dropdown-content col-sm-12">
+                @Html.ActionLink(Manage.ChangePassword, "ChangePassword", "Manage", null, new {@class = "dropDownBtn"})
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink(Resources.Register, "Register", "Account", null, new {@class = "dropDownBtn"})
+                }
+                @if (User.IsInRole("Timehouse"))
+                {
+                    @Html.ActionLink(Resources.UploadDocuments, "Admin", "Documents", null, new {@class = "dropDownBtn"})
+                }
+                <a class="dropDownBtn" href="javascript:document.getElementById('logoutForm').submit()">@Resources.Logoff</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    @Html.ActionLink(Resources.LogIn, "Login", "Account", null, new {@id="loginBtnTop"})
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(".languageSelect").before($(".dropdown"));
+</script>

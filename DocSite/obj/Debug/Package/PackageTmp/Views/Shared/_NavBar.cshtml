@@ -1,0 +1,44 @@
+﻿<div class="navbar header col-sm-12">
+    @if (Request.Cookies["Language"].Value == "fi")
+    {
+        @Html.ActionLink(" ", "Change", "Language", new { LanguageAbbrevation = "en" }, new { @class = "languageEn", @style = "float:right; margin:10px" })
+    }
+    else
+    {
+        @Html.ActionLink(" ", "Change", "Language", new { LanguageAbbrevation = "fi" }, new { @class = "languageFi", @style = "float:right; margin:10px" })
+    }
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-logo-container">
+            <a href="https://www.timehouse.fi/" class="img-responsive" id="header"></a>
+        </div>
+        <div style="text-align:center" class="col-sm-12">
+            @Html.ActionLink(DocSite.Resources.Resources.Home, "Index", "Products", routeValues: null, htmlAttributes: new { @class = "menu-buttons" })
+            @if (User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink(" ", "Organization", "Documents", routeValues: null, htmlAttributes: new { @id = "prodOrganization", @class = "menu-buttons" })
+            }
+
+            @Html.Partial("_Dropdownmenu")
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/bundles/lib")
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            method: "GET",
+            url: "/productsapi/GetOrganizationByUserName",
+            success: function (data) {
+                $("#prodOrganization").text(data);
+            },
+        });
+    });
+</script>
+
