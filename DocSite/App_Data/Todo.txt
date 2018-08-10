@@ -1,0 +1,47 @@
+﻿#
+# Tänne kaikki tekemättömät hommat 
+#
+
+1.  /Account/ForgotPassword
+	- Otsikko sivulla on aina "Forgot your password?". Missä suomenkieli? Samoin kirjaudu sisään sivulla "forgot password"-linkki.
+	-sähköpostilinkki-button huono nimi. Lähetä tjsp. parempi.
+	-en saanut mitään spostiin? Toimiikohan? Voi johtua dev smtp asetuksista tjtn. 
+	-https://stackoverflow.com/questions/26784366/how-to-send-email-from-mvc-5-application
+
+2. CSS-responsiivisuus
+	-Vain yksi mediakysely. Jos esim. katsoo Bootstrappiä mitä on käytössä tässä projektissa, niin sisältöalueiden rajat:
+	@media (max-width: 768px) - kännykkä
+	@media (min-width: 768px) - tabletti
+	@media (min-width: 992px) - pienehkö pc-ruutu
+	@media (min-width: 1200px) - täysikokoiset pc-ruudut
+
+	Kannattaa käyttää näitä samoja rajoja omassa CSS, koska osa tyyleistä jo tottelee näitä kyselyjä.
+
+	- Mobiilissa kaikki input-kentät voi hyvin olla 100% leveitä, kuitenkin pienellä marginilla.
+	- Säädin myös navbuttoneita vähän. Dropdown-menu voisi pamahtaa fixatuksi jo ns. tabletti leveydessä
+
+3. Dropzone.js heittää javascript erroria jokaisella tuotesivulla
+
+	Uncaught Error: Invalid `previewsContainer` option provided. Please provide a CSS selector or a plain HTML element.
+		at Function.Dropzone.getElement (dropzone.js:1541)
+		at new Dropzone (dropzone.js:454)
+		at HTMLDocument.<anonymous> (1:156)
+		at fire (jquery-1.10.2.js:3062)
+		at Object.fireWith [as resolveWith] (jquery-1.10.2.js:3174)
+		at Function.ready (jquery-1.10.2.js:447)
+		at HTMLDocument.completed (jquery-1.10.2.js:118)
+
+		<div id="previewUploads" class="dropzone-previews"></div> - puuttuu, siksi error. 
+
+
+4. Listat
+	- Aikaleimat jenkkimuotoa vaihdetaan dd/MM/vvvv + aika Datetimen.toString("dd.MM.yyyy")
+	- hakukenttä on aina "search"?, myös marginia kentän ja tekstin väliin
+	-  ja "records per page" aina englanniksi?
+
+5. Timehouse-logo ei ole keskellä => Johtuu kuvasta. Kuvassa ei ole keskitetty tekstjeä.
+
+Ehdotuksia:
+	Tuotesivuilla ohjetekstin voisi "upottaa" johonkin tietolaatikkoon. Eli esim. TimeBase sivulla "Materiaalin toimitus..."-teksti.
+
+	Käynnistyessä buildaa hirveän kauan joka kerta. Olisiko tähän jotain helpotusta?
